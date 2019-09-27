@@ -1,0 +1,69 @@
+        <div class="docker" id="logging">
+            <div class="page-header">
+                <h1>日志查询</h1>
+            </div>
+            <div class="content row col-md-8">
+                <div class="col-md-4">
+                    <label for="inputfile">模糊搜索</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">操作者</span>
+                        <input type="text" class="form-control" id="logging-user">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">操作项</span>
+                        <input type="text" class="form-control" id="logging-operation">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">对象</span>
+                        <input type="text" class="form-control" id="logging-target">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputfile">_</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">开始时间</span>
+                        <input class="form-control fetch-time" type="text"  id="logging-start-time">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">结束时间</span>
+                        <input class="form-control fetch-time" type="text"  id="logging-end-time">
+                    </div>
+                    <br>
+                    <button class="btn btn-default pull-right" id="logging-btn">搜索</button>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <label for="inputfile">搜索结果</label>
+                <table class="table table-responsive table-hover return">
+                    <thead>
+                        <tr>
+                            <th>操作者</th>
+                            <th>操作项</th>
+                            <th>对象</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logging-tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous-logging">
+                        <a href="#" id="previous-logging-a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next-logging">
+                        <a href="#" id="next-logging-a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row col-md-8 place">
+            </div>
+        </div>

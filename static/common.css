@@ -1,0 +1,29 @@
+body {
+    background-color: aliceblue;
+}
+h1{
+    margin: 0;
+    height: 50px;
+    text-align:center;
+    line-height:50px;
+}
+div.content{
+    height: 500px;
+    display: block;
+}
+div.login{
+    margin: 0 auto;
+    max-width: 185px;
+    padding-top: 30px;
+}
+input.input_login{
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 5px auto;
+    max-width: 60px;
+}
+p.p_login{
+    text-align:center;
+    vertical-align: middle;
+}

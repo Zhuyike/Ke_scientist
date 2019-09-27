@@ -1,0 +1,94 @@
+        <div class="docker" id="super_control">
+            <div class="page-header">
+                <h1>珂学家权限管理</h1>
+            </div>
+            <div class="content row col-md-11">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="username_login form-control" id="super-text" placeholder="请输入域账号">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="super-btn">获取用户</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content row col-md-11 next">
+                <label for="inputfile">用户列表</label>
+                <table class="table table-responsive table-hover return">
+                    <thead>
+                        <tr>
+                            <th>域账号</th>
+                            <th>身份</th>
+                            <th>现有权限</th>
+                            <th>首次登陆时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="super-tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous-super">
+                        <a href="#" id="previous-super-a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next-super">
+                        <a href="#" id="next-super-a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row col-md-11 place">
+            </div>
+        </div>
+        <div class="docker" id="super_control-b">
+            <div class="page-header">
+                <h1>珂学家权限管理</h1>
+            </div>
+            <div class="content row col-md-8">
+                <label>当前操作对象</label>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">域账号</span>
+                    <input type="text" class="form-control" id="super_control-username" disabled="disabled">
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <div class="col-md-6">
+                    <label for="inputfile">未获得权限列表</label>
+                    <table class="table table-responsive table-hover return">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th style="text-align:right"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="super-tbody-b-disable">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputfile">已获得权限列表</label>
+                    <table class="table table-responsive table-hover return">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="text-align:right">名称</th>
+                            </tr>
+                        </thead>
+                        <tbody id="super-tbody-b-enable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <div class="col-md-4">
+                    <button class="btn btn-default" id="super_control-b_back-btn">返回</button>
+
+                </div>
+            </div>
+            <div class="row col-md-8 place">
+            </div>
+        </div>

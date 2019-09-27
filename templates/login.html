@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>珂学家--登录</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/common.css">
+    <script type="application/javascript" src="../static/common.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="login">
+            <h1>login</h1>
+            <br>
+            <form class="form-horizontal" role="form">
+                <div class="input-group">
+                    <span class="input-group-addon">账户</span>
+                    <input type="text" name="username" class="username_login form-control" id="username" placeholder="请输入账户">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input type="password" class="pwd_login form-control" placeholder="请输入密码">
+                    <input type="hidden" name="password__" class="pwd_login__ form-control" id="password__">
+                </div>
+                <br>
+                <p class="p_login">
+                    <button type="button" class="input_login btn btn-default">
+                        <span class="glyphicon glyphicon-log-in"></span> 登录
+                    </button>
+                    <input type="hidden" name="next" class="next_login__" id="next__" value={{next_}}>
+                    <input type="hidden" name="next" class="failed_login__" id="failed__" value={{failed}}>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script type="application/javascript" src="../static/jquery/jquery-3.3.1.min.js"></script>
+    <script type="application/javascript" src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="../static/js_worker/login.js?version=1"></script>
+    <script type="application/javascript" src="../static/jquery/jquery.md5.js"></script>
+</body>
+</html>

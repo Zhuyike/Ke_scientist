@@ -38,7 +38,7 @@ class RunKeientist(Application):
             'debug': True if str(config.get('debug')) == '1' else False,
             'allow_plural_login': True if str(config.get('allow_plural_login')) == '1' else False,
             'login_ttl': int(config.get('login_ttl')),
-            'default_file': config.get('default_file'),
+            'login_ttl_day': int(config.get('login_ttl_day')),
             'mongo': self.mongodb,
             'redis': self.redis,
         }
@@ -46,6 +46,7 @@ class RunKeientist(Application):
                                            template_path=os.path.join(os.path.dirname(__file__), "templates"),
                                            static_path=os.path.join(os.path.dirname(__file__), "static"),
                                            login_url='/login',
+                                           cookie_secret=self.mongodb['keientist'].cookie_secret.find_one()['key'],
                                            **app_settings)
 
 
