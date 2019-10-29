@@ -3,10 +3,8 @@
 
 from apps.sample import BaseHandler
 from tornado.web import authenticated
-from worker.html_structure import *
 from worker.define import *
-import copy
-import oss2
+from tornado.ioloop import IOLoop
 import config
 
 
@@ -16,38 +14,18 @@ config.load('./server.conf')
 
 
 class MainHandler(BaseHandler):
-    @authenticated
-    def get(self):
+    def get_(self):
         if self.role == '':
             self.get_current_user()
-        control_set = set(self.current_user['super_control'])
+        control_set = self.current_user['super_control']
         if 'all' in control_set:
-            control_set = set(control_list_no_all)
+            control_set = control_list_no_all
             self.current_user['super_control'] = control_list_no_all
-        recent_structure = copy.deepcopy(index_structure)
-        for key in recent_structure.keys():
-            recent_structure[key] = [item for item in recent_structure[key] if item in control_set]
-            if len(recent_structure[key]) == 0:
-                recent_structure.pop(key)
-        index_tree = ''
-        for key in index_order:
-            if key in recent_structure.keys():
-                temp_leaf = ''
-                for control in recent_structure[key]:
-                    with open('./templates/html_structrue/{}/index.html'.format(control), 'r', encoding='utf-8') as f_temp:
-                        temp__ = f_temp.read()
-                        print(type(temp__))
-                        temp_leaf += temp__
-                temp_branch = index_template[key].format(temp_leaf)
-                index_tree += temp_branch
-        content = ''
-        script = ''
-        for control in self.current_user['super_control']:
-            with open('./templates/html_structrue/{}/content.html'.format(control), 'r', encoding='utf-8') as f_temp:
-                content += f_temp.read()
-            with open('./templates/html_structrue/{}/script.html'.format(control), 'r', encoding='utf-8') as f_temp:
-                script += f_temp.read()
-        # self._logging('login', '')
-        with open('./templates/main_structure.html', 'r', encoding='utf-8') as f_temp:
-            html = f_temp.read().format(index_tree, content, script)
-        self.write(html)
+        if 'sign_up' in control_set or 'logging' in control_set or 'super_control' in control_set:
+            control_set.append('admin_setting')
+        return self.render_html('main_structure.html', control={control: control in control_set for control in control_total})
+
+    @authenticated
+    async def get(self):
+        content = await IOLoop.current().run_in_executor(None, self.get_)
+        await self.finish(content)

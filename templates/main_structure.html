@@ -14,7 +14,19 @@
         <section  class="sidebar">
             <ul class="sidebar-menu">
                 <li class="header">Ke_scientist System</li>
-                {}
+                {% if control.admin_setting is equalto True %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-cog"></i> <span>管理员设置</span>
+                        <i class="pull-right glyphicon glyphicon-chevron-left"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if control.logging is equalto True %}<li><a href="#" class="logging"><i class="glyphicon glyphicon-compressed"></i> 日志查询</a></li>{% endif %}
+                        {% if control.sign_up is equalto True %}<li><a href="#" class="sign_up"><i class="glyphicon glyphicon-wrench"></i> 处理申请</a></li>{% endif %}
+                        {% if control.super_control is equalto True %}<li><a href="#" class="super_control"><i class="glyphicon glyphicon-tags"></i> 珂学家权限管理</a></li>{% endif %}
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
         </section>
      </aside>
@@ -22,7 +34,214 @@
         <div class="docker" id="start">
             <h1>珂学家</h1>
         </div>
-        {}
+        {% if control.logging is equalto True %}
+        <div class="docker" id="logging">
+            <div class="page-header">
+                <h1>日志查询</h1>
+            </div>
+            <div class="content row col-md-8">
+                <div class="col-md-4">
+                    <label for="inputfile">模糊搜索</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">操作者</span>
+                        <input type="text" class="form-control" id="logging-user">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">操作项</span>
+                        <input type="text" class="form-control" id="logging-operation">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">对象</span>
+                        <input type="text" class="form-control" id="logging-target">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputfile">_</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">开始时间</span>
+                        <input class="form-control fetch-time" type="text"  id="logging-start-time">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">结束时间</span>
+                        <input class="form-control fetch-time" type="text"  id="logging-end-time">
+                    </div>
+                    <br>
+                    <button class="btn btn-default pull-right" id="logging-btn">搜索</button>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <label for="inputfile">搜索结果</label>
+                <table class="table table-responsive table-hover return">
+                    <thead>
+                        <tr>
+                            <th>操作者</th>
+                            <th>操作项</th>
+                            <th>对象</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logging-tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous-logging">
+                        <a href="#" id="previous-logging-a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next-logging">
+                        <a href="#" id="next-logging-a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row col-md-8 place">
+            </div>
+        </div>
+        {% endif %}
+        {% if control.sign_up is equalto True %}
+        <div class="docker" id="sign_up">
+            <div class="page-header">
+                <h1>处理申请</h1>
+            </div>
+            <div class="content row col-md-8">
+                <div class="col-md-4">
+                    <button class="btn btn-default" id="sign-search-btn">搜索</button>
+                    <button class="btn btn-default" id="sign-reject-btn" disabled="disabled">全部拒绝</button>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <label for="inputfile">搜索结果</label>
+                <table class="table table-responsive table-hover sign">
+                    <thead>
+                        <tr>
+                            <th>申请人</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sign-tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous-sign">
+                        <a href="#" id="previous-sign-a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next-sign">
+                        <a href="#" id="next-sign-a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row col-md-8 place">
+            </div>
+        </div>
+        {% endif %}
+        {% if control.super_control is equalto True %}
+        <div class="docker" id="super_control">
+            <div class="page-header">
+                <h1>珂学家权限管理</h1>
+            </div>
+            <div class="content row col-md-11">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="username_login form-control" id="super-text" placeholder="请输入域账号">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="super-btn">获取用户</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content row col-md-11 next">
+                <label for="inputfile">用户列表</label>
+                <table class="table table-responsive table-hover return">
+                    <thead>
+                        <tr>
+                            <th>域账号</th>
+                            <th>身份</th>
+                            <th>现有权限</th>
+                            <th>首次登陆时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="super-tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous-super">
+                        <a href="#" id="previous-super-a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next-super">
+                        <a href="#" id="next-super-a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row col-md-11 place">
+            </div>
+        </div>
+        <div class="docker" id="super_control-b">
+            <div class="page-header">
+                <h1>珂学家权限管理</h1>
+            </div>
+            <div class="content row col-md-8">
+                <label>当前操作对象</label>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">域账号</span>
+                    <input type="text" class="form-control" id="super_control-username" disabled="disabled">
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <div class="col-md-6">
+                    <label for="inputfile">未获得权限列表</label>
+                    <table class="table table-responsive table-hover return">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th style="text-align:right"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="super-tbody-b-disable">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputfile">已获得权限列表</label>
+                    <table class="table table-responsive table-hover return">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="text-align:right">名称</th>
+                            </tr>
+                        </thead>
+                        <tbody id="super-tbody-b-enable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <div class="col-md-4">
+                    <button class="btn btn-default" id="super_control-b_back-btn">返回</button>
+
+                </div>
+            </div>
+            <div class="row col-md-8 place">
+            </div>
+        </div>
+        {% endif %}
     </div>
     <script src="../static/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="../static/jquery/jquery.md5.js" type="text/javascript"></script>
@@ -31,7 +250,9 @@
     <script src="../static/bootstrap/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
     <script src="../static/common.js" type="text/javascript"></script>
     <script src="../static/js_worker/main.js" type="text/javascript"></script>
-    {}
+    {% if control.logging is equalto True %}<script src="../static/js_worker/logging.js" type="text/javascript"></script>{% endif %}
+    {% if control.sign_up is equalto True %}<script src="../static/js_worker/sign.js" type="text/javascript"></script>{% endif %}
+    {% if control.super_control is equalto True %}<script src="../static/js_worker/super_control.js" type="text/javascript"></script>{% endif %}
     <script> $.sidebarMenu($('.sidebar-menu')) </script>
 </body>
 </html>

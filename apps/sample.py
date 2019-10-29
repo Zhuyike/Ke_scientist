@@ -5,9 +5,22 @@ from tornado.web import RequestHandler
 from tornado.ioloop import IOLoop
 from model import user as user_db
 from worker.tool_common import mikan_redis, get_redis
+from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 
 class BaseHandler(RequestHandler):
+    def render_template(self, template_name, **kwargs):
+        template_dirs = []
+        if self.settings.get('template_path', ''):
+            template_dirs.append(self.settings['template_path'])
+        env = Environment(loader=FileSystemLoader(template_dirs))
+        try:
+            template = env.get_template(template_name)
+        except TemplateNotFound:
+            raise TemplateNotFound(template_name)
+        content = template.render(kwargs)
+        return content
+
     def prepare(self):
         self.ke_db = self.settings['mongo']['keientist']
         self.redis = self.settings['redis']
@@ -17,19 +30,25 @@ class BaseHandler(RequestHandler):
     def get_user_id(self):
         return self.current_user['user_id']
 
+    def render_html(self, template_name, **kwargs):
+        kwargs.update({
+            'settings': self.settings,
+            'STATIC_URL': self.settings.get('static_url_prefix', '/static/'),
+        })
+        content = self.render_template(template_name, **kwargs)
+        return content
+
     def get_current_user(self):
-        session_key = str(self.get_secure_cookie('auth'), 'utf-8')
-        print(1, session_key)
+        auth_ = self.get_secure_cookie('auth')
+        if not auth_:
+            return None
+        session_key = str(auth_, 'utf-8')
         if session_key:
             _id = get_redis(session_key, self.redis)
-            print(2, _id)
             if not self.allow_plural_login:
-                print(3, get_redis(_id, self.redis))
                 if get_redis(_id, self.redis) != session_key:
                     _id = None
-            print(4, _id)
             user_data = user_db.fetch_user_by_id(self.ke_db, _id)
-            print(5, user_data)
             if user_data:
                 return user_data
             else:
