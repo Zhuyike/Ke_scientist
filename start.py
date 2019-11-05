@@ -23,6 +23,7 @@ def keientist_db_instance():
     mongo_client.keientist.authenticate(config.get('mongo_user'), config.get('mongo_pwd'))
     dbs = dict()
     dbs['keientist'] = mongo_client['keientist']
+    dbs['revdol_data'] = mongo_client['revdol_data']
     logging.info('Keientist: connect to mongodb!')
     return dbs
 

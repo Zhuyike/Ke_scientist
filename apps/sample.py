@@ -4,8 +4,10 @@
 from tornado.web import RequestHandler
 from tornado.ioloop import IOLoop
 from model import user as user_db
+from model import log as log_db
 from worker.tool_common import mikan_redis, get_redis
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+import time
 
 
 class BaseHandler(RequestHandler):
@@ -23,6 +25,7 @@ class BaseHandler(RequestHandler):
 
     def prepare(self):
         self.ke_db = self.settings['mongo']['keientist']
+        self.re_db = self.settings['mongo']['revdol_data']
         self.redis = self.settings['redis']
         self.allow_plural_login = self.settings['allow_plural_login']
         self.role = ''
@@ -62,6 +65,18 @@ class BaseHandler(RequestHandler):
 
     def write_error(self, status_code, **kwargs):
         self.write(u"Keientist: 阿喏，一个{}错误哦".format(status_code))
+
+    def json_write(self, data='', msg='success', success=1):
+        resp = {'data': data, 'msg': msg, 'success': success}
+        super(BaseHandler, self).write(resp)
+
+    def _logging(self, operation, target, user=''):
+        data = {'operation': operation,
+                'target': target,
+                'time': int(time.time()),
+                'user': self.get_current_user()['username'] if user == '' else user,
+                'ip': self.request.remote_ip}
+        log_db.new_logging(self.ke_db, data)
 
 
 class DemoHandler(BaseHandler):

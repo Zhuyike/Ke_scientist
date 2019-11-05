@@ -37,6 +37,21 @@ def authenticated_admin(method):
     return wrapper
 
 
+def check_control(control):
+    def authenticated_control(method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if not self.current_user:
+                self.json_write(success=0, msg='登录信息已失效')
+                return
+            if not ('all' in self.current_user['super_control'] or control in self.current_user['super_control']):
+                self.json_write(success=0, msg='该账户无此权限')
+                return
+            return method(self, *args, **kwargs)
+        return wrapper
+    return authenticated_control
+
+
 def authenticated_user(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
@@ -45,23 +60,6 @@ def authenticated_user(method):
             return
         return method(self, *args, **kwargs)
     return wrapper
-
-
-def verify_ticket(ticket, service_url):
-    verify_url = _authorize_verify_url + '?' + 'ticket=' + ticket + '&service=' + service_url
-    page = requests.get(verify_url, stream=True)
-    try:
-        page_iterator = page.iter_lines(chunk_size=8192)
-        verify_result = next(page_iterator)
-        if verify_result == 'yes':
-            return next(page_iterator)
-        else:
-            return None
-    except:
-        logging.info('Ticket Verify Error!')
-        return None
-    finally:
-        page.close()
 
 
 def init_user(db):

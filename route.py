@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from apps import sample
-from apps import login
-from apps import main
-# from apps import login
-
+from apps import (sample, login, main, log)
 
 route_list = [
     (r'/demo', sample.DemoHandler),
@@ -12,4 +8,6 @@ route_list = [
     (r'/main', main.MainHandler),
 
     (r'/api/login', login.ApiLoginHandler),
+    (r'/api/fetch_logging', log.FetchLoggingHandler),
+    # (r'/api/anti_fan_list', )
 ]

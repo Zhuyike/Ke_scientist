@@ -47,16 +47,13 @@ $('#logging-btn').on('click', function () {
                     '<tr><td>' + logging_list[i]['user'] +
                     '</td><td>' + logging_list[i]['operation'] +
                     '</td><td>' + logging_list[i]['target'] +
+                    '</td><td>' + logging_list[i]['ip'] +
                     '</td><td>' + logging_list[i]['time'] + '</td></tr>';
             }
             $('#logging-tbody').html(text);
             logging_max = Math.ceil(logging_list.length / logging_len) - 1;
         } else {
             fetch_failed(data)();
-            // alert('操作失败，失败信息：' + data['msg']);
-            // if (data['msg'] === '登录信息已失效') {
-            //     window.location = '/login'
-            // }
         }
     })
 });
@@ -75,6 +72,7 @@ $previous_logging_a.on('click', function () {
                 '<tr><td>' + logging_list[i]['user'] +
                 '</td><td>' + logging_list[i]['operation'] +
                 '</td><td>' + logging_list[i]['target'] +
+                '</td><td>' + logging_list[i]['ip'] +
                 '</td><td>' + logging_list[i]['time'] + '</td></tr>'
         }
         if (logging_page === 0) {
@@ -103,6 +101,7 @@ $next_logging_a.on('click', function () {
                 '<tr><td>' + logging_list[i]['user'] +
                 '</td><td>' + logging_list[i]['operation'] +
                 '</td><td>' + logging_list[i]['target'] +
+                '</td><td>' + logging_list[i]['ip'] +
                 '</td><td>' + logging_list[i]['time'] + '</td></tr>'
         }
         if (logging_page === logging_max) {

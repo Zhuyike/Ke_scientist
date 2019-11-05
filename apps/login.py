@@ -33,6 +33,7 @@ class ApiLoginHandler(BaseHandler):
                     self.redis.set(session_key + mikan_redis, str(user['_id']), ex=self.settings['login_ttl'])
                     self.redis.set(str(user['_id']) + mikan_redis, session_key, ex=self.settings['login_ttl'])
                     redis_pipe.execute()
+                    self._logging(operation='登录成功', target=username, user=username)
                     return user['name']
                 else:
                     return 2
