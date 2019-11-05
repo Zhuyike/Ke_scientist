@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from apps import (sample, login, main, log)
+from apps import (sample, login, main, log, antifan)
 
 route_list = [
     (r'/demo', sample.DemoHandler),
@@ -9,5 +9,6 @@ route_list = [
 
     (r'/api/login', login.ApiLoginHandler),
     (r'/api/fetch_logging', log.FetchLoggingHandler),
-    # (r'/api/anti_fan_list', )
+    (r'/api/anti_fans/list', antifan.AntiFanListHandler),
+    (r'/api/anti_fans/merge', antifan.AntiFanMergeHandler),
 ]
