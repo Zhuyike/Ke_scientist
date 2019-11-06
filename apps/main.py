@@ -23,6 +23,8 @@ class MainHandler(BaseHandler):
             self.current_user['super_control'] = control_list_no_all
         if 'sign_up' in control_set or 'logging' in control_set or 'super_control' in control_set:
             control_set.append('admin_setting')
+        if 'antifan' in control_set:
+            control_set.append('revdol')
         return self.render_html('main_structure.html', control={control: control in control_set for control in control_total})
 
     @authenticated

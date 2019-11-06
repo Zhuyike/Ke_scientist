@@ -11,4 +11,5 @@ route_list = [
     (r'/api/fetch_logging', log.FetchLoggingHandler),
     (r'/api/anti_fans/list', antifan.AntiFanListHandler),
     (r'/api/anti_fans/merge', antifan.AntiFanMergeHandler),
+    (r'/api/anti_fans/upload', antifan.UpLoadHandler),
 ]

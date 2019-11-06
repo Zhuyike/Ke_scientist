@@ -13,6 +13,7 @@ from pymongo import MongoClient
 from tornado.web import Application
 from urllib.parse import quote_plus
 import config
+import oss2
 import os
 
 g_config = None
@@ -26,6 +27,12 @@ def keientist_db_instance():
     dbs['revdol_data'] = mongo_client['revdol_data']
     logging.info('Keientist: connect to mongodb!')
     return dbs
+
+
+def OSS_instance():
+    auth = oss2.Auth(config.get('oss_AccessKeyId'), config.get('oss_AccessKeySecret'))
+    bucket = oss2.Bucket(auth, config.get('oss_Address'), config.get('oss_Bucket'))
+    return bucket
 
 
 class RunKeientist(Application):
@@ -42,6 +49,10 @@ class RunKeientist(Application):
             'login_ttl_day': int(config.get('login_ttl_day')),
             'mongo': self.mongodb,
             'redis': self.redis,
+            'oss': OSS_instance(),
+            'oss_antifan': config.get('oss_Prefix_antifan'),
+            'oss_address': config.get('oss_Address'),
+            'oss_address_download': config.get('oss_Address_Download')
         }
         super(RunKeientist, self).__init__(handlers=route.route_list,
                                            template_path=os.path.join(os.path.dirname(__file__), "templates"),

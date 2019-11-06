@@ -14,6 +14,18 @@
         <section  class="sidebar">
             <ul class="sidebar-menu">
                 <li class="header">Ke_scientist System</li>
+                {% if control.revdol is equalto True %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-leaf"></i> <span>歌姬相关</span>
+                        <i class="pull-right glyphicon glyphicon-chevron-left"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if control.antifan is equalto True %}<li><a href="#" class="antifan-b"><i class="glyphicon glyphicon-th-list"></i> 黑粉列表</a></li>{% endif %}
+                        {% if control.antifan is equalto True %}<li><a href="#" class="antifan"><i class="glyphicon glyphicon-ban-circle"></i> 黑粉登记</a></li>{% endif %}
+                    </ul>
+                </li>
+                {% endif %}
                 {% if control.admin_setting is equalto True %}
                 <li class="treeview">
                     <a href="#">
@@ -243,6 +255,72 @@
             </div>
         </div>
         {% endif %}
+        {% if control.antifan is equalto True %}
+        <div class="docker" id="antifan">
+            <div class="page-header">
+                <h1>黑粉登记</h1>
+            </div>
+            <div class="content row col-md-10">
+                <div class="col-md-6">
+                    <form role="form" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="inputfile">上传截图</label>
+                            <input type="file" id="inputfile" class="anti_img_input">
+                            <p class="help-block">现在就是能用就行，用户体验不存在的</p>
+                        </div>
+                        <button class="btn btn-default" id="anti_file_btn">提交</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <img alt="此处会显示刚刚最新上传的图片" class="antifan_img">
+                </div>
+            </div>
+            <div class="content next row col-md-10">
+                <div class="col-md-6">
+                    <form role="form" onsubmit="return false;">
+                        <div class="input-group">
+                            <span class="input-group-addon">平台</span>
+                            <input type="text" class="form-control" id="anti_platform">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">昵称</span>
+                            <input type="text" class="form-control" id="anti_neckname">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">UID</span>
+                            <input type="text" class="form-control" id="anti_uid">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">原因</span>
+                            <input type="text" class="form-control" id="anti_reason">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">发生时间</span>
+                            <input class="form-control fetch-time" type="text"  id="anti_uptime">
+                        </div>
+                        <br>
+                        <button class="btn btn-default" id="anti_input_btn">提交</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-responsive table-hover return">
+                            <thead>
+                                <tr>
+                                    <th>截图</th>
+                                    <th style="text-align:right">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anti_evidence">
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     <script src="../static/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="../static/jquery/jquery.md5.js" type="text/javascript"></script>
@@ -254,6 +332,7 @@
     {% if control.logging is equalto True %}<script src="../static/js_worker/logging.js" type="text/javascript"></script>{% endif %}
     {% if control.sign_up is equalto True %}<script src="../static/js_worker/sign.js" type="text/javascript"></script>{% endif %}
     {% if control.super_control is equalto True %}<script src="../static/js_worker/super_control.js" type="text/javascript"></script>{% endif %}
+    {% if control.antifan is equalto True %}<script src="../static/js_worker/antifan.js" type="text/javascript"></script>{% endif %}
     <script> $.sidebarMenu($('.sidebar-menu')) </script>
 </body>
 </html>

@@ -27,7 +27,11 @@ class BaseHandler(RequestHandler):
         self.ke_db = self.settings['mongo']['keientist']
         self.re_db = self.settings['mongo']['revdol_data']
         self.redis = self.settings['redis']
+        self.oss = self.settings['oss']
+        self.oss_antifan = self.settings['oss_antifan']
+        self.oss_address = self.settings['oss_address']
         self.allow_plural_login = self.settings['allow_plural_login']
+        self.oss_address_download = self.settings['oss_address_download']
         self.role = ''
 
     def get_user_id(self):
