@@ -248,7 +248,6 @@
             <div class="content row col-md-8 next">
                 <div class="col-md-4">
                     <button class="btn btn-default" id="super_control-b_back-btn">返回</button>
-
                 </div>
             </div>
             <div class="row col-md-8 place">
@@ -318,6 +317,153 @@
                             </tbody>
                         </table>
                 </div>
+            </div>
+        </div>
+        <div class="docker" id="antifan-b">
+            <div class="page-header">
+                <h1>黑粉列表</h1>
+            </div>
+            <div class="content col-md-10">
+                <div class="col-md-6">
+                    <label for="inputfile">搜索</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">昵称</span>
+                        <input type="text" class="form-control" id="anti_neckname_search">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">平台</span>
+                        <input type="text" class="form-control" id="anti_platform_search">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">开始时间</span>
+                        <input class="form-control fetch-time" type="text"  id="anti_start_uptime">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputfile">_</label>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">UID</span>
+                        <input type="text" class="form-control" id="anti_uid_search">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">原因关键字</span>
+                        <input type="text" class="form-control" id="anti_reason_search">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">结束时间</span>
+                        <input class="form-control fetch-time" type="text"  id="anti_end_uptime">
+                    </div>
+                    <br>
+                    <button class="btn btn-default pull-right" id="anti_search">搜索</button>
+                </div>
+            </div>
+            <div class="content next col-md-10 book-list">
+                <label for="inputfile">搜索结果</label>
+                <table class="table table-responsive table-hover anti_list">
+                    <thead>
+                        <tr>
+                            <th>昵称</th>
+                            <th>平台</th>
+                            <th>UID</th>
+                            <th>发生时间</th>
+                            <th>原因</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="anti_tbody">
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous disabled" id="previous_anti">
+                        <a href="#" id="previous_anti_a">
+                            &larr; 上一页
+                        </a>
+                    </li>
+                    <li class="next disabled" id="next_anti">
+                        <a href="#" id="next_anti_a">
+                            下一页 &rarr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="docker" id="antifan-c">
+            <div class="page-header">
+                <h1>黑粉详情</h1>
+            </div>
+            <div class="content row col-md-10">
+                <div class="col-md-6">
+                    <form role="form" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="inputfile">上传截图</label>
+                            <input type="file" id="inputfile_c" class="anti_img_input_c">
+                            <p class="help-block">现在就是能用就行，用户体验不存在的</p>
+                        </div>
+                        <button class="btn btn-default" id="anti_file_btn_c">提交</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <img alt="此处会显示刚刚最新上传的图片" class="antifan_img_c">
+                </div>
+            </div>
+            <div class="content next row col-md-10">
+                <div class="col-md-6">
+                    <form role="form" onsubmit="return false;">
+                        <input type="hidden" name="_id" class="anti_id" id="anti_id_c" value=''>
+                        <div class="input-group">
+                            <span class="input-group-addon">平台</span>
+                            <input type="text" class="form-control" id="anti_platform_c">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">昵称</span>
+                            <input type="text" class="form-control" id="anti_neckname_c">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">UID</span>
+                            <input type="text" class="form-control" id="anti_uid_c">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">原因</span>
+                            <input type="text" class="form-control" id="anti_reason_c">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">发生时间</span>
+                            <input class="form-control fetch-time" type="text"  id="anti_uptime_c">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-responsive table-hover return">
+                            <thead>
+                                <tr>
+                                    <th>截图</th>
+                                    <th style="text-align:right">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anti_evidence_c">
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <div class="content row col-md-8 next">
+                <div class="col-md-4">
+                    <button class="btn btn-default" id="anti_back_btn">返回</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-default" id="anti_input_btn_c">修改</button>
+                </div>
+            </div>
+            <div class="row col-md-10 place">
             </div>
         </div>
         {% endif %}

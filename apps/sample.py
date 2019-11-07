@@ -68,7 +68,7 @@ class BaseHandler(RequestHandler):
         super(BaseHandler, self).write(resp)
 
     def write_error(self, status_code, **kwargs):
-        self.write(u"Keientist: 阿喏，一个{}错误哦".format(status_code))
+        self.write(u"Keientist: 发现了一个{}错误哦~~".format(status_code))
 
     def json_write(self, data='', msg='success', success=1):
         resp = {'data': data, 'msg': msg, 'success': success}
