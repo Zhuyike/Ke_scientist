@@ -28,7 +28,6 @@ class ApiLoginHandler(BaseHandler):
                 if user['access']:
                     redis_pipe = self.redis.pipeline(transaction=True)
                     session_key = str(ObjectId())
-                    print(session_key)
                     self.set_secure_cookie('auth', session_key, expires_days=self.settings['login_ttl_day'])
                     self.redis.set(session_key + mikan_redis, str(user['_id']), ex=self.settings['login_ttl'])
                     self.redis.set(str(user['_id']) + mikan_redis, session_key, ex=self.settings['login_ttl'])

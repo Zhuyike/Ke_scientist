@@ -31,3 +31,8 @@ class MainHandler(BaseHandler):
     async def get(self):
         content = await IOLoop.current().run_in_executor(None, self.get_)
         await self.finish(content)
+
+
+class RootHandler(BaseHandler):
+    def get(self):
+        self.redirect('/main')

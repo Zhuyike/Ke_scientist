@@ -3,6 +3,7 @@
 from apps import (sample, login, main, log, antifan)
 
 route_list = [
+    (r'/', main.RootHandler),
     (r'/demo', sample.DemoHandler),
     (r'/login', login.LoginHandler),
     (r'/main', main.MainHandler),
