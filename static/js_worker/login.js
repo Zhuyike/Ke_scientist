@@ -8,14 +8,12 @@ $(function () {
            'password__': $.md5(pwd)
        };
        user = JSON.stringify(user);
-       console.log(user);
        $.ajax('/api/login', {
            'method': 'POST',
            'contentType': 'application/json',
            'data': user,
            'dataType': 'json'
        }).done(function (data) {
-           console.log(data);
            if (data['login'] === 'success'){
                if (confirm(data['msg'] + '\n登录成功，点击确定后跳转')){
                    window.location = next_;

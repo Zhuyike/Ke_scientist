@@ -21,7 +21,10 @@ function fetch_failed(data) {
         window.location = '/login';
     }
 }
-$('.fetch-time').datetimepicker({
-    language:  'zh-CN',
-    autoclose: 1
-});
+var $fetch_time = $('.fetch-time');
+if ($fetch_time.length !== 0) {
+    $fetch_time.datetimepicker({
+        language:  'zh-CN',
+        autoclose: 1
+    });
+}
