@@ -67,7 +67,10 @@ class AntiFanMergeHandler(BaseHandler):
         data['evidence'] = data['evidence'].strip().split(',')
         data['evidence'] = [evidence for evidence in data['evidence'] if len(evidence) != 0]
         data['ctime'] = int(time.time())
-        data['uptime'] = int(data['uptime'])
+        try:
+            data['uptime'] = int(data['uptime'])
+        except Exception:
+            pass
         method_ = int(data.pop('op'))
         if method_ == Method.ADD:
             anti_db.add(self.ke_db, data)
