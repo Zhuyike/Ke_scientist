@@ -51,7 +51,10 @@ class AntiFanListHandler(BaseHandler):
             antifan['evidence'] = [{'address': '{}/{}{}'.format(self.oss_address_download, self.oss_antifan, evidence),
                                     'img': evidence}
                                    for evidence in antifan['evidence']]
-            antifan['uptime'] = time.strftime('%Y-%m-%d %H:%M', time.localtime(antifan['uptime']))
+            try:
+                antifan['uptime'] = time.strftime('%Y-%m-%d %H:%M', time.localtime(antifan['uptime']))
+            except Exception:
+                antifan['uptime'] = ''
             return_data.append(antifan)
         return return_data
 
