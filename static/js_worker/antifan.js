@@ -68,7 +68,8 @@ $('#anti_file_btn').on('click', function () {
             $('.antifan_img').attr('src', data['data']['address']);
             anti_evidence[data['data']['img']] = 1;
             var text = $anti_evidence.html();
-            text += '<tr><td><img src="' + data['data']['address'] + '" height="50px" alt="123"/></td><td style="text-align:right">' +
+            text += '<tr><td><img src="' + data['data']['address'] +
+                '" height="50px" alt="123" class="pimg"/></td><td style="text-align:right">' +
                 '<button class="btn btn-default" id="delete_evidence_btn" value=' +
                     data['data']['img'] + '>&larr; 删除</button></td></tr>';
             $anti_evidence.html(text);
@@ -235,7 +236,7 @@ function anti_detail() {
     for (i = 0; i < anti_data['evidence'].length; i++) {
         anti_evidence_c[anti_data['evidence'][i]['img']] = 1;
         text += '<tr><td><img src="' + anti_data['evidence'][i]['address'] +
-            '" height="50px" alt="123"/></td><td style="text-align:right">' +
+            '" height="50px" alt="123" class="pimg"/></td><td style="text-align:right">' +
             '<button class="btn btn-default" id="delete_evidence_btn" value=' +
             anti_data['evidence'][i]['img'] + '>&larr; 删除</button></td></tr>';
     }
@@ -259,7 +260,8 @@ $('#anti_file_btn_c').on('click', function () {
             $('.antifan_img_c').attr('src', data['data']['address']);
             anti_evidence_c[data['data']['img']] = 1;
             var text = $anti_evidence_c.html();
-            text += '<tr><td><img src="' + data['data']['address'] + '" height="50px" alt="123"/></td><td style="text-align:right">' +
+            text += '<tr><td><img src="' + data['data']['address'] +
+                '" height="50px" alt="123" class="pimg"/></td><td style="text-align:right">' +
                 '<button class="btn btn-default" id="delete_evidence_btn" value=' +
                     data['data']['img'] + '>&larr; 删除</button></td></tr>';
             $anti_evidence_c.html(text);
@@ -321,3 +323,45 @@ $('#anti_back_btn').on('click', function () {
     $('.docker').hide();
     $('#antifan-b').show();
 });
+$anti_evidence.on('click', 'tr td img', img_show);
+$anti_evidence_c.on('click', 'tr td img', img_show);
+//下面的代码 感谢：https://www.cnblogs.com/antis/p/7053991.html
+function img_show(){
+    console.log('1111');
+    var _this = $(this);//将当前的pimg元素作为_this传入函数
+    imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
+}
+function imgShow(outerdiv, innerdiv, bigimg, _this){
+    var src = _this.attr("src");//获取当前点击的pimg元素中的src属性
+    $(bigimg).attr("src", src);//设置#bigimg元素的src属性
+            /*获取当前点击图片的真实大小，并显示弹出层及大图*/
+    $(bigimg).attr("src", src).on('load', function(){
+        var windowW = $(window).width();//获取当前窗口宽度
+        var windowH = $(window).height();//获取当前窗口高度
+        var realWidth = this.width;//获取图片真实宽度
+        var realHeight = this.height;//获取图片真实高度
+        var imgWidth, imgHeight;
+        var scale = 0.8;//缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放
+        if(realHeight>windowH*scale) {//判断图片高度
+            imgHeight = windowH*scale;//如大于窗口高度，图片高度进行缩放
+            imgWidth = imgHeight/realHeight*realWidth;//等比例缩放宽度
+            if(imgWidth>windowW*scale) {//如宽度扔大于窗口宽度
+                imgWidth = windowW*scale;//再对宽度进行缩放
+            }
+        } else if(realWidth>windowW*scale) {//如图片高度合适，判断图片宽度
+            imgWidth = windowW*scale;//如大于窗口宽度，图片宽度进行缩放
+            imgHeight = imgWidth/realWidth*realHeight;//等比例缩放高度
+        } else {//如果图片真实高度和宽度都符合要求，高宽不变
+            imgWidth = realWidth;
+            imgHeight = realHeight;
+        }
+        $(bigimg).css("width",imgWidth);//以最终的宽度对图片缩放
+        var w = (windowW-imgWidth)/2;//计算图片与窗口左边距
+        var h = (windowH-imgHeight)/2;//计算图片与窗口上边距
+        $(innerdiv).css({"top":h, "left":w});//设置#innerdiv的top和left属性
+        $(outerdiv).fadeIn("fast");//淡入显示#outerdiv及.pimg
+    });
+    $(outerdiv).click(function(){//再次点击淡出消失弹出层
+        $(this).fadeOut("fast");
+    });
+}
