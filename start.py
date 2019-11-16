@@ -11,7 +11,6 @@ import tornado.ioloop
 import tornado.web
 from pymongo import MongoClient
 from tornado.web import Application
-from urllib.parse import quote_plus
 import config
 import oss2
 import os
