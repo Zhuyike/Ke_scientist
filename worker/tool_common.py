@@ -124,3 +124,16 @@ def get_excel_style():  # bold=True
 
     return {'yellow': style_yellow, 'left': style_left, 'center': style_center, 'green': style_green,
             'red': style_red, 'bold': style_bold}
+
+
+def order_by(data, order_by_):
+    if order_by_ == '':
+        return data
+    if ',' in order_by_:
+        parts = order_by_.split(',')
+        reverse = False if parts[1] == 'asc' else True
+        key = parts[0]
+    else:
+        reverse = False
+        key = order_by_
+    return sorted(data, key=lambda x: x[key], reverse=reverse)
